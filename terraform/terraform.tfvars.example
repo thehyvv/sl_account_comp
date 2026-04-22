@@ -1,0 +1,8 @@
+# Copy this to terraform.tfvars and fill in values
+# DO NOT commit terraform.tfvars (it's in .gitignore)
+
+project_id  = "sl-account-compare"
+region      = "asia-southeast1"
+db_password = "REPLACE_WITH_YOUR_PASSWORD"
+github_repo = "thehyvv/sl_account_comp"
+app_url     = ""   # Fill in after first deploy
