@@ -16,6 +16,10 @@ env:
   IMAGE_NAME: bank-compare-ui
   CLOUD_RUN_SERVICE: bank-compare-ui
 
+permissions:
+  contents: read
+  id-token: write   # Required for Workload Identity Federation
+
 jobs:
   # ─────────────────────────────────────────
   # Job 1: Lint & type-check (all branches)
