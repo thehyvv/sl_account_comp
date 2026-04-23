@@ -99,4 +99,4 @@ export interface FilterOption {
 }
 
 export type BankTypeFilter = 'all' | 'state' | 'private' | 'foreign';
-export type ProductCategoryFilter = 'all' | 'savings' | 'fixed_deposit' | 'current' | 'foreign_currency';
+export type ProductCategoryFilter = 'all' | 'savings' | 'fixed_deposit' | 'current' | 'foreign_currency' | 'remittance';

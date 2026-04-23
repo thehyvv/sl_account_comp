@@ -54,7 +54,7 @@ function getValue(product: Product, key: string): string | boolean | number | nu
     const featureKey = key.replace('features.', '');
     return ((product.features as unknown) as Record<string, unknown>)[featureKey] as string | boolean | number | null;
   }
-  return (product as Record<string, unknown>)[key] as string | boolean | number | null;
+  return (product as unknown as Record<string, unknown>)[key] as string | boolean | number | null;
 }
 
 function formatValue(value: unknown, type: string): string {
@@ -244,7 +244,7 @@ export default function ComparePage() {
   const productsToCompare = allProducts.filter((p) => compareIds.includes(p.id));
 
   // Check for mixed categories
-  const currentCategories = [...new Set(productsToCompare.map((p) => p.category))];
+  const currentCategories = Array.from(new Set(productsToCompare.map((p) => p.category)));
   const isMixedCategories = currentCategories.length > 1;
 
   const addProduct = (id: string) => {
