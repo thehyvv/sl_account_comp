@@ -191,7 +191,7 @@ export default function BanksPage() {
               <div>
                 <h3 className="font-semibold text-emerald-900 mb-1">Rating Methodology</h3>
                 <p className="text-sm text-emerald-800">
-                  Risk ratings combine Fitch/Moody's credit ratings with CBSL classifications. Banks with no international
+                  Risk ratings combine Fitch/Moody&apos;s credit ratings with CBSL classifications. Banks with no international
                   rating are assessed based on CBSL data, years in operation, and asset size. Always verify current
                   ratings directly with rating agencies.
                 </p>

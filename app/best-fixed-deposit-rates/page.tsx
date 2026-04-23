@@ -236,19 +236,19 @@ export default function BestFixedDepositRatesPage() {
                 <div>
                   <h3 className="font-medium text-stone-900 text-sm">2. Check Bank Stability</h3>
                   <p className="text-sm text-stone-600">
-                    Look for Fitch or Moody's ratings. State banks and large private banks offer more security.
+                    Look for Fitch or Moody&apos;s ratings. State banks and large private banks offer more security.
                   </p>
                 </div>
                 <div>
                   <h3 className="font-medium text-stone-900 text-sm">3. Consider Your Timeline</h3>
                   <p className="text-sm text-stone-600">
-                    Longer tenures usually offer higher rates, but ensure you won't need the money early.
+                    Longer tenures usually offer higher rates, but ensure you won&apos;t need the money early.
                   </p>
                 </div>
                 <div>
                   <h3 className="font-medium text-stone-900 text-sm">4. Senior Citizen Benefits</h3>
                   <p className="text-sm text-stone-600">
-                    If you're 55+, you may qualify for 0.25-0.5% additional interest.
+                    If you&apos;re 55+, you may qualify for 0.25-0.5% additional interest.
                   </p>
                 </div>
               </div>

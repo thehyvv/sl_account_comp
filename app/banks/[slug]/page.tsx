@@ -98,7 +98,7 @@ export default function BankDetailPage() {
         <div className="container-custom py-16 text-center">
           <Building2 className="w-16 h-16 text-stone-300 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-stone-900 mb-2">Bank Not Found</h1>
-          <p className="text-stone-600">The bank you're looking for doesn't exist in our directory.</p>
+          <p className="text-stone-600">The bank you&apos;re looking for doesn&apos;t exist in our directory.</p>
         </div>
         <Footer />
       </div>
@@ -173,7 +173,7 @@ export default function BankDetailPage() {
             <div className="bg-white rounded-xl border border-stone-200 p-5">
               <div className="flex items-center gap-2 text-stone-500 text-sm mb-2">
                 <Star className="w-4 h-4" />
-                Moody's Rating
+                Moody&apos;s Rating
               </div>
               <div className="text-2xl font-bold text-stone-900">
                 {bank.moodyRating || 'Not Rated'}

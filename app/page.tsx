@@ -56,7 +56,7 @@ export default function Home() {
 
               {/* Subheadline */}
               <p className="text-lg sm:text-xl text-stone-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Compare 24 licensed banks, interest rates, and features. Whether you're a
+                Compare 24 licensed banks, interest rates, and features. Whether you&apos;re a
                 <span className="text-emerald-700 font-medium"> resident</span> or{' '}
                 <span className="text-emerald-700 font-medium">expat</span>, find the perfect
                 account for your needs.

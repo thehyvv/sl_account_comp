@@ -111,7 +111,7 @@ export default function AISearch() {
               className="text-sm text-emerald-700 hover:text-emerald-800 underline underline-offset-2
                          decoration-emerald-300 hover:decoration-emerald-600 transition-all"
             >
-              "{example}"
+              &quot;{example}&quot;
             </button>
           ))}
         </div>
