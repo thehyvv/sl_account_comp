@@ -5,6 +5,30 @@ import FeaturedRates from '@/components/rates/FeaturedRates';
 import BankDirectory from '@/components/banks/BankDirectory';
 import HowItWorks from '@/components/sections/HowItWorks';
 import { Shield, TrendingUp, Building2, Clock, Users, Globe, TrendingUp as TrendingUpIcon, BookOpen, ChevronRight } from 'lucide-react';
+import { db } from '@/lib/db';
+import { banks as banksTable } from '@/lib/db/schema';
+import type { Bank } from '@/types';
+
+async function getBanks(): Promise<Bank[]> {
+  try {
+    const rows = await db.select().from(banksTable).orderBy(banksTable.name);
+    return rows.map((row) => ({
+      id: String(row.id),
+      name: row.name,
+      shortCode: row.shortCode,
+      websiteUrl: row.website ?? '',
+      logoUrl: row.logoUrl ?? undefined,
+      bankType: row.type,
+      fitchRating: row.fitchRating ?? undefined,
+      cbslCategory: 'Licensed Commercial Bank',
+      riskScore: row.riskTier === 'low' ? 30 : row.riskTier === 'moderate' ? 55 : 80,
+      riskTier: row.riskTier as Bank['riskTier'],
+      isActive: true,
+    }));
+  } catch {
+    return [];
+  }
+}
 
 const trustBadges = [
   { icon: Building2, label: '24 Licensed Banks', sublabel: 'CBSL Authorized' },
@@ -13,7 +37,8 @@ const trustBadges = [
   { icon: Clock, label: 'Save Time', sublabel: 'Compare in Seconds' },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const allBanks = await getBanks();
   return (
     <div className="min-h-screen bg-stone-50">
       <Header />
@@ -149,7 +174,7 @@ export default function Home() {
         <FeaturedRates />
 
         {/* Bank Directory Section */}
-        <BankDirectory />
+        <BankDirectory banks={allBanks} />
 
         {/* How It Works Section */}
         <HowItWorks />

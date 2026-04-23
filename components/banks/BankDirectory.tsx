@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Building2, ArrowRight, Landmark, Globe, Store } from 'lucide-react';
 import { Bank, BankTypeFilter } from '@/types';
-import { getBanksByType } from '@/lib/mock-data';
 import { cn, getRiskBadgeClass, getRiskLabel } from '@/lib/utils';
 
 const bankTypeFilters: { value: BankTypeFilter; label: string; icon: React.ReactNode }[] = [
@@ -58,21 +57,35 @@ function BankCard({ bank }: BankCardProps) {
       {/* Products Count */}
       <div className="flex items-center justify-between pt-4 border-t border-stone-100">
         <span className="text-sm text-stone-500">12 products</span>
-        <button className="flex items-center gap-1 text-sm font-medium text-emerald-700
-                         group-hover:text-emerald-800 transition-colors">
+        <a
+          href={`/banks/${bank.shortCode.toLowerCase()}`}
+          className="flex items-center gap-1 text-sm font-medium text-emerald-700
+                       group-hover:text-emerald-800 transition-colors"
+        >
           Explore
           <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-        </button>
+        </a>
       </div>
     </div>
   );
 }
 
-export default function BankDirectory() {
+interface BankDirectoryProps {
+  banks: Bank[];
+}
+
+export default function BankDirectory({ banks }: BankDirectoryProps) {
   const [activeFilter, setActiveFilter] = useState<BankTypeFilter>('all');
-  const banks = getBanksByType(activeFilter).slice(0, 8);
-  const totalBanks = 24;
-  const remainingBanks = totalBanks - banks.length;
+
+  const filtered = banks.filter((b) => {
+    if (activeFilter === 'all') return true;
+    if (activeFilter === 'private') return b.bankType === 'private_domestic';
+    return b.bankType === activeFilter;
+  });
+
+  const displayBanks = filtered.slice(0, 8);
+  const totalBanks = banks.length;
+  const remainingBanks = Math.max(0, totalBanks - displayBanks.length);
 
   return (
     <section className="section-padding bg-stone-50">
@@ -111,30 +124,31 @@ export default function BankDirectory() {
 
         {/* Banks Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {banks.map((bank) => (
+          {displayBanks.map((bank) => (
             <BankCard key={bank.id} bank={bank} />
           ))}
 
-          {/* "More Banks" Card */}
-          <div className="group bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-xl p-5
-                          flex flex-col items-center justify-center text-center
-                          hover:shadow-xl hover:shadow-emerald-600/20 transition-all duration-300 cursor-pointer">
-            <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-4">
-              <span className="text-2xl font-bold text-white">+{remainingBanks}</span>
+          {remainingBanks > 0 && (
+            <div className="group bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-xl p-5
+                            flex flex-col items-center justify-center text-center
+                            hover:shadow-xl hover:shadow-emerald-600/20 transition-all duration-300 cursor-pointer">
+              <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-4">
+                <span className="text-2xl font-bold text-white">+{remainingBanks}</span>
+              </div>
+              <p className="text-white/90 font-medium mb-2">More Banks</p>
+              <p className="text-white/70 text-sm mb-4">View all {totalBanks} licensed institutions</p>
+              <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
             </div>
-            <p className="text-white/90 font-medium mb-2">More Banks</p>
-            <p className="text-white/70 text-sm mb-4">View all {totalBanks} licensed institutions</p>
-            <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
-          </div>
+          )}
         </div>
 
         {/* Stats Row */}
         <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { label: 'Licensed Banks', value: '24' },
-            { label: 'With Fitch Ratings', value: '15' },
-            { label: 'State Owned', value: '3' },
-            { label: 'Foreign Banks', value: '10' },
+            { label: 'Licensed Banks', value: String(totalBanks) },
+            { label: 'With Fitch Ratings', value: String(banks.filter(b => b.fitchRating).length) },
+            { label: 'State Owned', value: String(banks.filter(b => b.bankType === 'state').length) },
+            { label: 'Foreign Banks', value: String(banks.filter(b => b.bankType === 'foreign').length) },
           ].map((stat) => (
             <div key={stat.label} className="text-center p-4 bg-white rounded-xl border border-stone-200">
               <div className="text-2xl font-bold text-emerald-700 mb-1">{stat.value}</div>
